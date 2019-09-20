@@ -1,1 +1,3 @@
 Game Intro: https://www.firstinspires.org/robotics/ftc/game-and-season
+
+Vuforia Licence: https://developer.vuforia.com/license-manager
