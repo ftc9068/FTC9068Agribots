@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.agribotscode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,10 +10,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 @TeleOp(name = "OmniWheelDriveXYRev2", group = "Tutorials")
 public class OmniWheelDriveXYRev2 extends LinearOpMode
 {
-    private DcMotor motorTopLeft;
-    private DcMotor motorBottomLeft;
-    private DcMotor motorTopRight;
-    private DcMotor motorBottomRight;
+    private DcMotor motor_3;
+    private DcMotor motor_2;
+    private DcMotor motor_0;
+    private DcMotor motor_1;
 
 
     private float scale(float value){
@@ -23,13 +23,13 @@ public class OmniWheelDriveXYRev2 extends LinearOpMode
     @Override
     public void runOpMode() throws InterruptedException
     {
-        motorTopLeft = hardwareMap.dcMotor.get("motorTopLeft");
+        motor_3 = hardwareMap.dcMotor.get("motor_3");m
 
-        motorBottomLeft = hardwareMap.dcMotor.get("motorBottomLeft");
+        motor_2 = hardwareMap.dcMotor.get("motor_2");
 
-        motorTopRight = hardwareMap.dcMotor.get("motorTopRight");
+        motor_0 = hardwareMap.dcMotor.get("motor_0");
 
-        motorBottomRight = hardwareMap.dcMotor.get("motorBottomRight");
+        motor_1 = hardwareMap.dcMotor.get("motor_1");
 
 
 
@@ -42,13 +42,13 @@ public class OmniWheelDriveXYRev2 extends LinearOpMode
             float z=gamepad1.right_stick_x;
 
 
-            //motorTopLeft.setPower(scale(-y + x + z));
-            motorTopLeft.setPower(scale(-(-y-x)-z));
-            motorBottomLeft.setPower(scale(-(-y+x) -z));
-            motorTopRight.setPower(scale(-y+x-z));
-            motorBottomRight.setPower(scale(-y-x -z));
+            //motor_3.setPower(scale(-y + x + z));
+            motor_3.setPower(scale(-(-y-x)-z));
+            motor_2.setPower(scale(-(-y+x) -z));
+            motor_0.setPower(scale(-y+x-z));
+            motor_1.setPower(scale(-y-x -z));
 
-            /* dougs code
+            /* Doug's code
             front left (-(y-x)+z)   -(1-(-1)0 = -2     -(1-0)=-1    -(1-1)=0  etc
             front right (y+x+z)       1+(-1) = 0         1+0 =1        1+1=2
             rear left (-(y+x) +z)   -(1+(-1) = 0     -(1+0) =-1  -(1+1)=-2
