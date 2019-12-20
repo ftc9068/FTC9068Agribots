@@ -7,8 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Daniel Miller on 1/9/2018.
  */
-@TeleOp(name = "OmniWheelDriveXYRev2", group = "Tutorials")
-public class OmniWheelDriveXYRev2 extends LinearOpMode
+@TeleOp(name = "MotorDualTankDrive", group = "Tutorials")
+public class MotorDualTankDrive extends LinearOpMode
 {
     private DcMotor motor_3;
     private DcMotor motor_2;
@@ -37,16 +37,17 @@ public class OmniWheelDriveXYRev2 extends LinearOpMode
 
         while (opModeIsActive())
         {
-            float x=gamepad1.left_stick_x;
-            float y=gamepad1.left_stick_y;
-            float z=gamepad1.right_stick_x;
+            float G1Lx=gamepad1.left_stick_x;
+            float G1Ly=gamepad1.left_stick_y;
+            float G1Rx=gamepad1.right_stick_x;
+            float G1Ry=gamepad1.right_stick_y;
 
 
             //motor_3.setPower(scale(-y + x + z));
-            motor_3.setPower(scale(-(-y-x)-z));
-            motor_2.setPower(scale(-(-y+x) -z));
-            motor_0.setPower(scale(-y+x-z));
-            motor_1.setPower(scale(-y-x -z));
+            motor_0.setPower(G1Rx*-1.0);
+            motor_1.setPower(G1Ry);
+            motor_2.setPower(G1Lx);
+            motor_3.setPower(G1Ly*-1.0);
 
             /* Doug's code
             front left (-(y-x)+z)   -(1-(-1)0 = -2     -(1-0)=-1    -(1-1)=0  etc
