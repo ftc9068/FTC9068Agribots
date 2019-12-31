@@ -2,7 +2,7 @@ package org.firstinspires.ftc.agribotscode;
 
 public class Postion {
     private double x;
-    private double y:
+    private double y;
     private double z;
 
     public double getX() {

@@ -49,6 +49,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  */
 
 @TeleOp(name="Sounds", group="Concept")
+@Disabled
 public class soundpractice extends LinearOpMode {
 
     // List of available sound resources

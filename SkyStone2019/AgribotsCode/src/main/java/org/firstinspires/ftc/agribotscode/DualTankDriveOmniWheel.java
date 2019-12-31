@@ -7,7 +7,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 /**
  * Created by Daniel Miller on 1/9/2018.
  */
-@TeleOp(name = "OmniWheelDriveXYRev2", group = "Tutorials")
+@TeleOp(name = "Dual Tank Drive", group = "SkyStone")
+
 public class DualTankDriveOmniWheel extends LinearOpMode
 {
     private DcMotor motor_3;
