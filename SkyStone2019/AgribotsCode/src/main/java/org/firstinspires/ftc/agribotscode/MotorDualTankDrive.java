@@ -44,8 +44,8 @@ public class MotorDualTankDrive extends LinearOpMode
 
 
             //motor_3.setPower(scale(-y + x + z));
-            motor_0.setPower(G1Rx*-1.0);
-            motor_1.setPower(G1Ry);
+            motor_0.setPower(G1Rx);
+            motor_1.setPower(G1Ry*-1.0);
             motor_2.setPower(G1Lx);
             motor_3.setPower(G1Ly*-1.0);
 
