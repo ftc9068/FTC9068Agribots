@@ -7,15 +7,22 @@ public class Arm {
     private Servo claw;
     private DcMotor shoulder;
 
+    public void setClaw(Servo claw) {
+        this.claw = claw;
+    }
+
+    public void setShoulder(DcMotor shoulder) {
+        this.shoulder = shoulder;
+    }
+
     static final double CLAW_OPEN_POS = 1.0;     // Maximum rotational position
     static final double CLAW_CLOSED_POS = 0.0;     // Minimum rotational position
 
     public Arm() {
     }
 
-    public void init(DcMotor shoulder, Servo claw) {
-        this.shoulder = shoulder; //hardwareMap.dcMotor.get("shoulder");
-        this.claw = this.claw;//hardwareMap.get(Servo.class, "claw");
+    public void init() {
+
     }
 
     public void openClaw() {
