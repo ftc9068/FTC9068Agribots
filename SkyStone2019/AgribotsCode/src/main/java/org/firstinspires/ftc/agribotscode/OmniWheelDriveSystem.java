@@ -26,10 +26,10 @@ public class OmniWheelDriveSystem {
     }
 
     public void moveXYR(double x, double y, double r){
-        frontRight.setPower(scale(-y + x - r));
-        rearRight.setPower(scale(-y - x - r));
-        rearLeft.setPower(scale(-(-y + x) - r));
-        frontLeft.setPower(scale(-(-y - x) - r));
+        frontRight.setPower(scale(-y - x - r));
+        rearRight.setPower(scale(-y + x - r));
+        rearLeft.setPower(scale(-(-y - x) - r));
+        frontLeft.setPower(scale(-(-y + x) - r));
     }
     private double scale(double value) {
         return value / 2.0f;
