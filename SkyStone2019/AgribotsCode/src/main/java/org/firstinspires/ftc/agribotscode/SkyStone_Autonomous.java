@@ -19,6 +19,8 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 @Autonomous (name = "SkyStone_Autonomous", group = "SkyStone")
 public class SkyStone_Autonomous extends LinearOpMode {
 
+    private SkystoneRobot robot = new SkystoneRobot();
+
     private Arm arm;
 
     private OmniWheelDriveSystem drive;
@@ -27,6 +29,8 @@ public class SkyStone_Autonomous extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
+
+        robot.initialize(hardwareMap);
 
         arm = new Arm();
         arm.setShoulder(hardwareMap.dcMotor.get("shoulder"));
@@ -44,6 +48,7 @@ public class SkyStone_Autonomous extends LinearOpMode {
 
 
         waitForStart();
+        delayedStart();
 
         while (opModeIsActive()) {
 
@@ -56,17 +61,22 @@ public class SkyStone_Autonomous extends LinearOpMode {
             }
 
             if (! foundLine){
-                drive.moveXYR(0.1, 0, 0);
+                drive.moveXYR(0.5, 0, 0);
             }else {
                 drive.moveXYR(.0, 0, 0);
             }
 
+            telemetry.update();
+            idle();
+        }
+    }
 
-
-
-
-
-
+    private void delayedStart() {
+        this.resetStartTime();
+        double remaining = robot.getAutonomousDelay();
+        while (opModeIsActive() && remaining > 0) {
+            remaining = robot.getAutonomousDelay() - this.getRuntime();
+            telemetry.addData("Starting in", "%.1f seconds", remaining);
             telemetry.update();
             idle();
         }

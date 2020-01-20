@@ -54,6 +54,7 @@ public class SkyStone_TeleOp_Duo extends LinearOpMode {
             //TODO right and left need to be switched
             //x is - when moving left
             drive.moveXYR(x, y, r);
+            drive.displayPower(telemetry);
 
             arm.shoulderUp(armPower);
 

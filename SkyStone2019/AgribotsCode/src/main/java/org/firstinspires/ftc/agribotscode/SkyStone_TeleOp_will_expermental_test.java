@@ -63,6 +63,7 @@ public class SkyStone_TeleOp_will_expermental_test extends LinearOpMode {
             //TODO right and left need to be switched
             //x is - when moving left
             drive.moveXYR(x, y, r);
+            drive.displayPower(telemetry);
 
             arm.shoulderUp(armPower);
 
