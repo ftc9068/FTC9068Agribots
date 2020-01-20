@@ -50,13 +50,13 @@ public class SkyStone_Autonomous extends LinearOpMode {
             telemetry.addData("Red  ", sensorColor.red());
             telemetry.addData("Green", sensorColor.green());
             telemetry.addData("Blue ", sensorColor.blue());
-            // if red or blue are above 120 then stop.
-            if (sensorColor.red() > 120 || sensorColor.blue() > 120  ){
+            // if red or blue are above 100 then stop.
+            if (sensorColor.red() > 100 || sensorColor.blue() > 100  ){
                 foundLine=true;
             }
 
             if (! foundLine){
-                drive.moveXYR(.5, 0, 0);
+                drive.moveXYR(0.1, 0, 0);
             }else {
                 drive.moveXYR(.0, 0, 0);
             }

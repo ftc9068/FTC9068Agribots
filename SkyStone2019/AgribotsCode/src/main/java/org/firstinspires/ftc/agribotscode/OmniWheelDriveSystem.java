@@ -8,6 +8,7 @@ public class OmniWheelDriveSystem {
     private DcMotor rearRight;
     private DcMotor rearLeft;
     private DcMotor frontLeft;
+    private double speedFactor;
 
     public void setFrontRight(DcMotor frontRight) {
         this.frontRight = frontRight;
@@ -31,7 +32,17 @@ public class OmniWheelDriveSystem {
         rearLeft.setPower(scale(-(-y - x) - r));
         frontLeft.setPower(scale(-(-y + x) - r));
     }
-    private double scale(double value) {
-        return value / 2.0f;
+
+    public double getSpeedFactor() {
+        return speedFactor;
     }
+
+    public void setSpeedFactor(double speedFactor) {
+        this.speedFactor = speedFactor;
+    }
+
+    private double scale(double value) {
+        return value / 2.0f*speedFactor;
+    }
+//I changed 2.0 f to 1.0 f
 }
