@@ -35,11 +35,11 @@ public class OmniWheelDriveSystem {
     public void moveXYR(double x, double y, double r) {
         // Other function for computing powers, need to test.
         // front right = sin(y - x) * sqrt(x^2 + y^2) - r
-
-        frontRightPower = -y - x - r;
-        rearRightPower = -y + x - r;
-        rearLeftPower = -(-y - x) - r;
-        frontLeftPower = -(-y + x) - r;
+                                           //If all values are 1
+        frontRightPower = -y - x - r;      //=-3
+        rearRightPower = -y + x - r;       //=-1
+        rearLeftPower = -(-y - x) - r;     //=1
+        frontLeftPower = -(-y + x) - r;    //=-1
         scale();
         setPowers();
     }

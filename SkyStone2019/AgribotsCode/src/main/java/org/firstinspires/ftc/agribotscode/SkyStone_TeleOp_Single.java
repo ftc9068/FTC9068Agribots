@@ -10,6 +10,10 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 @TeleOp(name = "SkyStone_TeleOp_Single", group = "SkyStone")
 public class SkyStone_TeleOp_Single extends LinearOpMode {
 
+
+    private double minSpeedFactor=0.5;
+    private double speedFactor=1;
+//added private double minSpeedFactor and private double speedFactor
     private Arm arm;
 
     //static final double     DRIVE_SPEED             = 1.0;
@@ -31,6 +35,7 @@ public class SkyStone_TeleOp_Single extends LinearOpMode {
         arm = new Arm();
         arm.setShoulder(hardwareMap.dcMotor.get("shoulder"));
         arm.setClaw(hardwareMap.servo.get("claw"));
+        //arm.init(); // not working yet for teleop
 
         drive = new OmniWheelDriveSystem();
         drive.setFrontRight(hardwareMap.dcMotor.get("motor_0"));
@@ -42,14 +47,18 @@ public class SkyStone_TeleOp_Single extends LinearOpMode {
 
         while (opModeIsActive()) {
 
+            float trigger =gamepad1.right_trigger;
+            speedFactor = minSpeedFactor+trigger *(1-minSpeedFactor);
+//added float trigger + speedFactor
             double armPower = gamepad1.right_stick_y;
 
             float x = gamepad1.left_stick_x;
-            float r = gamepad1.right_stick_x;
+            float r = gamepad1.right_stick_x / 2.0f;
             float y = gamepad1.left_stick_y;
             telemetry.addData("Drive x", x);
             telemetry.addData("Drive r", r);
             telemetry.addData("Drive y", y);
+            telemetry.addData("Shoulder Position",arm.getShoulderPosition() );
 
             //TODO right and left need to be switched
             //x is - when moving left

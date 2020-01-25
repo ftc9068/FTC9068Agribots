@@ -12,7 +12,7 @@ public class SkyStone_TeleOp_will_expermental_test extends LinearOpMode {
 
     private Arm arm;
     private double minSpeedFactor=0.5;
-    private double speedFactor;
+    private double speedFactor=1;
 
 
 
