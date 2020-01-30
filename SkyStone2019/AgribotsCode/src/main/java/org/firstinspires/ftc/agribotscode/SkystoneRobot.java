@@ -17,6 +17,8 @@ import java.util.Properties;
 
 public class SkystoneRobot {
     public static final String AUTONOMOUS_DELAY_KEY = "autonomous.delay";
+    public static final String AUTONOMOUS_RED_THRESHOLD = "autonomous.redThreshold";
+    public static final String AUTONOMOUS_BLUE_THRESHOLD = "autonomous.blueThreshold";
     public static final String TEAM_COLOR_KEY = "team.color";
     private static final String PROPERTIES_FILE = "SkystoneRobot.properties";
     private Properties properties = new Properties();
@@ -73,6 +75,21 @@ public class SkystoneRobot {
 
     public void setAutonomousDelay(double delay) {
         properties.setProperty(AUTONOMOUS_DELAY_KEY, Double.toString(delay));
+    }
+
+    public int getAutonomousRedThreshold(){
+        int redThreshold = 0;
+        String redThresholdStr = properties.getProperty(AUTONOMOUS_RED_THRESHOLD);
+        if (redThresholdStr != null) {
+            redThreshold = Integer.parseInt(redThresholdStr);
+        } else{
+            setAutonomousRedThreshold(redThreshold);
+        }
+        return redThreshold;
+    }
+
+    public void setAutonomousRedThreshold(int redThreshold) {
+        properties.setProperty(AUTONOMOUS_RED_THRESHOLD, Integer.toString(redThreshold));
     }
 
     public Properties getProperties(){
