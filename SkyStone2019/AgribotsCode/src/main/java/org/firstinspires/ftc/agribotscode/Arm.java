@@ -4,9 +4,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 public class Arm {
-    static final double     COUNTS_PER_MOTOR_REV    = 2240 ;    // Rev Hex motor
-    static final double     DRIVE_GEAR_REDUCTION    = 1.0;//40.0*8.0 ;     // 40 : 1 motor and 8: 1 gears
-    static final double     SHOULDER_SPEED    = 1.0 ;
+    static final double COUNTS_PER_MOTOR_REV = 2240;    // Rev Hex motor
+    static final double DRIVE_GEAR_REDUCTION = 1.0;//40.0*8.0 ;     // 40 : 1 motor and 8: 1 gears
+    static final double SHOULDER_SPEED = 1.0;
     private Servo claw;
     private DcMotor shoulder;
 
@@ -26,19 +26,23 @@ public class Arm {
 
     public void init() {
         shoulder.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        shoulder.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
     }
 
-    public void rotateShoulder(double deg){
-shoulder.setTargetPosition((int)(deg*COUNTS_PER_MOTOR_REV*DRIVE_GEAR_REDUCTION));
-shoulder.setMode (DcMotor.RunMode.RUN_TO_POSITION);
-shoulder.setPower (SHOULDER_SPEED);
+    public void rotateShoulder(double deg) {
+        shoulder.setTargetPosition((int) (deg * COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION));
+        shoulder.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        shoulder.setPower(SHOULDER_SPEED);
     }
-    public double getShoulderPosition(){
-return shoulder.getCurrentPosition();
+
+    public double getShoulderPosition() {
+        return shoulder.getCurrentPosition();
     }
-    public void stop(){
-        shoulder.setPower (0.0);
+
+    public void stop() {
+        shoulder.setPower(0.0);
     }
 
     public void openClaw() {
