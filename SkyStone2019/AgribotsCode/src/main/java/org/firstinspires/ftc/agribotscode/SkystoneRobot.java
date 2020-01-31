@@ -92,6 +92,22 @@ public class SkystoneRobot {
         properties.setProperty(AUTONOMOUS_RED_THRESHOLD, Integer.toString(redThreshold));
     }
 
+
+    public int getAutonomousBlueThreshold(){
+        int blueThreshold = 0;
+        String blueThresholdStr = properties.getProperty(AUTONOMOUS_BLUE_THRESHOLD);
+        if (blueThresholdStr != null) {
+            blueThreshold = Integer.parseInt(blueThresholdStr);
+        } else{
+            setAutonomousRedThreshold(blueThreshold);
+        }
+        return blueThreshold;
+    }
+
+    public void setAutonomousBlueThreshold(int blueThreshold) {
+        properties.setProperty(AUTONOMOUS_BLUE_THRESHOLD, Integer.toString(blueThreshold));
+    }
+
     public Properties getProperties(){
 
         return properties;
