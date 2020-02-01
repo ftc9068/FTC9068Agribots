@@ -55,6 +55,9 @@ public class RobotConfigurationOpMode extends LinearOpMode {
         //  Getting all the properties will initialize them if the file is not already there.
         robot.getAutonomousDelay();
         robot.getTeamColor();
+        robot.getAutonomousBlueThreshold();
+        robot.getAutonomousRedThreshold();
+
         Properties properties = robot.getProperties();
         String[] keys = new String[properties.size()];
         properties.stringPropertyNames().toArray(keys);
@@ -118,11 +121,41 @@ public class RobotConfigurationOpMode extends LinearOpMode {
                     while(gamepad1.dpad_left) {
                         sleep(1);
                     }
-                    color = TeamColor.fromOrdinal((color.ordinal() + 1) % numColors );
+                    color = TeamColor.fromOrdinal((color.ordinal() - 1) % numColors );
                     robot.setTeamColor(color);
                     robot.saveProperties();
                 }
 
+            } else if(selectedKey.equals(SkystoneRobot.AUTONOMOUS_RED_THRESHOLD)) {
+                int redThreshold = robot.getAutonomousRedThreshold();
+                if(gamepad1.dpad_right){
+                    while(gamepad1.dpad_right) {
+                        sleep(1);
+                    }
+                    redThreshold++;
+                }else if (gamepad1.dpad_left){
+                    while(gamepad1.dpad_left) {
+                        sleep(1);
+                    }
+                    redThreshold--;
+                }
+                robot.setAutonomousRedThreshold(redThreshold);
+                robot.saveProperties();
+            } else if(selectedKey.equals(SkystoneRobot.AUTONOMOUS_BLUE_THRESHOLD)) {
+                int blueThreshold = robot.getAutonomousBlueThreshold();
+                if(gamepad1.dpad_right){
+                    while(gamepad1.dpad_right) {
+                        sleep(1);
+                    }
+                    blueThreshold++;
+                }else if (gamepad1.dpad_left){
+                    while(gamepad1.dpad_left) {
+                        sleep(1);
+                    }
+                    blueThreshold--;
+                }
+                robot.setAutonomousBlueThreshold(blueThreshold);
+                robot.saveProperties();
             }
             telemetry.update();
         }
