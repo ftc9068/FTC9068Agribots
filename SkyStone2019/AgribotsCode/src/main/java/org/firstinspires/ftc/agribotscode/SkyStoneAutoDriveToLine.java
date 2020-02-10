@@ -12,60 +12,53 @@ import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 
 /**
- * Created by Daniel Miller on 1/9/2018.
- *
+ * Drive the robot to a red or blue line and stop.
  */
 
-@Autonomous (name = "SkyStone_Autonomous", group = "SkyStone")
-public class SkyStone_Autonomous extends LinearOpMode {
+@Autonomous(name = "SkyStone Drive to Line", group = "SkyStone")
+public class SkyStoneAutoDriveToLine extends LinearOpMode {
 
     private SkystoneRobot robot = new SkystoneRobot();
-
-    private Arm arm;
-
-    private OmniWheelDriveSystem drive;
-
-    private ColorSensor sensorColor;
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         robot.initialize(hardwareMap);
 
-        arm = new Arm();
-        arm.setShoulder(hardwareMap.dcMotor.get("shoulder"));
-        arm.setClaw(hardwareMap.servo.get("claw"));
-
-
-        drive = new OmniWheelDriveSystem();
-        drive.setFrontRight(hardwareMap.dcMotor.get("motor_0"));
-        drive.setRearRight(hardwareMap.dcMotor.get("motor_1"));
-        drive.setRearLeft(hardwareMap.dcMotor.get("motor_2"));
-        drive.setFrontLeft(hardwareMap.dcMotor.get("motor_3"));
-
-        sensorColor = hardwareMap.get(ColorSensor.class, "ground_sensor");
-        boolean foundLine = false;
-
-
         waitForStart();
         delayedStart();
 
+        driveToLine();
+
         while (opModeIsActive()) {
+            telemetry.update();
+            idle();
+        }
+    }
 
-            telemetry.addData("Red  ", sensorColor.red());
-            telemetry.addData("Green", sensorColor.green());
-            telemetry.addData("Blue ", sensorColor.blue());
+    private void driveToLine() {
+        boolean foundLine = false;
+        robot.getGroundSensor().enableLed(true);
+        while (opModeIsActive() && !foundLine) {
+            int red = robot.getGroundSensor().red();
+            int green = robot.getGroundSensor().green();
+            int blue = robot.getGroundSensor().blue();
+
             // if red or blue are above 100 then stop.
-            if (sensorColor.red() > 100 || sensorColor.blue() > 100  ){
-                foundLine=true;
+            if (red > 100 || blue > 100) {
+                foundLine = true;
             }
 
-            if (! foundLine){
-                drive.moveXYR(0.5, 0, 0);
-            }else {
-                drive.moveXYR(.0, 0, 0);
+            if (!foundLine) {
+                robot.getDriveSystem().moveXYR(0.5, 0, 0);
+            } else {
+                robot.getDriveSystem().moveXYR(.0, 0, 0);
             }
 
+            telemetry.addLine("Dive to line.");
+            telemetry.addData("Red  ", red);
+            telemetry.addData("Green", green);
+            telemetry.addData("Blue ", blue);
             telemetry.update();
             idle();
         }

@@ -1,7 +1,5 @@
 package org.firstinspires.ftc.agribotscode;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Environment;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -23,8 +21,8 @@ public class SkystoneRobot {
     private static final String PROPERTIES_FILE = "SkystoneRobot.properties";
     private Properties properties = new Properties();
     private Arm arm;
-    private OmniWheelDriveSystem drive;
-    private ColorSensor sensorColor;
+    private OmniWheelDriveSystem driveSystem;
+    private ColorSensor groundSensor;
 
 
     public SkystoneRobot() {
@@ -35,16 +33,40 @@ public class SkystoneRobot {
         arm = new Arm();
         arm.setShoulder(hardwareMap.dcMotor.get("shoulder"));
         arm.setClaw(hardwareMap.servo.get("claw"));
+        //arm.setShoulderStopSensor(hardwareMap.touchSensor.get(""));
+        arm.init();
 
+        driveSystem = new OmniWheelDriveSystem();
+        driveSystem.setFrontRight(hardwareMap.dcMotor.get("motor_0"));
+        driveSystem.setRearRight(hardwareMap.dcMotor.get("motor_1"));
+        driveSystem.setRearLeft(hardwareMap.dcMotor.get("motor_2"));
+        driveSystem.setFrontLeft(hardwareMap.dcMotor.get("motor_3"));
 
-        drive = new OmniWheelDriveSystem();
-        drive.setFrontRight(hardwareMap.dcMotor.get("motor_0"));
-        drive.setRearRight(hardwareMap.dcMotor.get("motor_1"));
-        drive.setRearLeft(hardwareMap.dcMotor.get("motor_2"));
-        drive.setFrontLeft(hardwareMap.dcMotor.get("motor_3"));
+        groundSensor = hardwareMap.get(ColorSensor.class, "ground_sensor");
+        groundSensor.enableLed(false);
 
-        sensorColor = hardwareMap.get(ColorSensor.class, "ground_sensor");
+    }
 
+    public void update() {
+        arm.update();
+        driveSystem.update();
+    }
+
+    public void stop(){
+        arm.stop();
+        driveSystem.stop();
+    }
+
+    public Arm getArm() {
+        return arm;
+    }
+
+    public OmniWheelDriveSystem getDriveSystem() {
+        return driveSystem;
+    }
+
+    public ColorSensor getGroundSensor() {
+        return groundSensor;
     }
 
     public TeamColor getTeamColor(){

@@ -16,6 +16,16 @@ public class OmniWheelDriveSystem {
     private double frontLeftPower;
     private double speedFactor = 1;
 
+    public OmniWheelDriveSystem() {
+    }
+
+    public void init() {
+    }
+
+    public void update() {
+
+    }
+
     public void setFrontRight(DcMotor frontRight) {
         this.frontRight = frontRight;
     }
@@ -32,10 +42,19 @@ public class OmniWheelDriveSystem {
         this.frontLeft = motor_3;
     }
 
+
+    public void stop() {
+        frontRightPower = 0.0;
+        rearRightPower = 0.0;
+        rearLeftPower = 0.0;
+        frontLeftPower = 0.0;
+        setPowers();
+    }
+
     public void moveXYR(double x, double y, double r) {
         // Other function for computing powers, need to test.
         // front right = sin(y - x) * sqrt(x^2 + y^2) - r
-                                           //If all values are 1
+        //If all values are 1
         frontRightPower = -y - x - r;      //=-3
         rearRightPower = -y + x - r;       //=-1
         rearLeftPower = -(-y - x) - r;     //=1
@@ -59,32 +78,39 @@ public class OmniWheelDriveSystem {
         telemetry.addData("Rear Right Power", rearRightPower);
     }
 
-    private void setPowers(){
+    /**
+     * Set the motor drive powers.
+     */
+    private void setPowers() {
         frontRight.setPower(frontRightPower);
         rearRight.setPower(rearRightPower);
         rearLeft.setPower(rearLeftPower);
         frontLeft.setPower(frontLeftPower);
     }
 
-    private double maxAbsPower(){
+    /**
+     * Calculate the maximum absolute value of all the powers. This is used to scale power levels.
+     * @return
+     */
+    private double maxAbsPower() {
         return Math.max(Math.max(Math.max(Math.abs(frontLeftPower),
                 Math.abs(frontRightPower)),
                 Math.abs(rearLeftPower)),
                 Math.abs(rearRightPower));
     }
+
     /**
-     * Reduce the power levels so that the max power to any motor is no more than 1.0
+     * Reduce the power levels so that the power to any motor is between -1.0 and 1.0.
      */
     private void scale() {
         double max = maxAbsPower();
         double scale = 1;
-        if (max > 1){
-            scale  = 1.0 / max;
+        if (max > 1) {
+            scale = 1.0 / max;
         }
         frontRightPower = frontRightPower * scale * speedFactor;
         rearRightPower = rearRightPower * scale * speedFactor;
         rearLeftPower = rearLeftPower * scale * speedFactor;
         frontLeftPower = frontLeftPower * scale * speedFactor;
     }
-//I changed 2.0 f to 1.0 f
 }
