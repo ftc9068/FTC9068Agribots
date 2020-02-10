@@ -52,6 +52,7 @@ public class SkyStone_Autonomous_testSystem extends LinearOpMode {
             telemetry.addData("Green", sensorColor.green());
             telemetry.addData("Blue ", sensorColor.blue());
             telemetry.addData("Shoulder Position",arm.getShoulderPosition() );
+            telemetry.addData("Arm Stop Sensor", arm.getArmStopPosition());
             // if red or blue are above 100 then stop.
             if (sensorColor.red() > 100 || sensorColor.blue() > 100  ){
                 foundLine=true;

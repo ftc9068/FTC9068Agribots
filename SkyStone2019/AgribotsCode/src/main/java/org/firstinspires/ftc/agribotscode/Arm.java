@@ -2,13 +2,15 @@ package org.firstinspires.ftc.agribotscode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class Arm {
     static final double COUNTS_PER_MOTOR_REV = 2240;    // Rev Hex motor
     static final double DRIVE_GEAR_REDUCTION = 1.0;//40.0*8.0 ;     // 40 : 1 motor and 8: 1 gears
-    static final double SHOULDER_SPEED = 1.0;
+    static final double SHOULDER_SPEED = 0.2;
     private Servo claw;
     private DcMotor shoulder;
+    private TouchSensor shoulderStopSensor;
 
     public void setClaw(Servo claw) {
         this.claw = claw;
@@ -16,6 +18,14 @@ public class Arm {
 
     public void setShoulder(DcMotor shoulder) {
         this.shoulder = shoulder;
+    }
+
+    public void setShoulderStopSensor(TouchSensor shoulderStopSensor){
+        this.shoulderStopSensor = shoulderStopSensor;
+    }
+
+    public boolean getArmStopPosition() {
+        return shoulderStopSensor.isPressed();
     }
 
     static final double CLAW_OPEN_POS = 1.0;     // Maximum rotational position
