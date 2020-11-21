@@ -28,7 +28,7 @@ public class SkyStoneTeleOpDuo extends LinearOpMode {
 
 
             robot.getDriveSystem().moveXYR(x, y, r);
-            robot.getDriveSystem().displayPower(telemetry);
+            robot.getDriveSystem().displayStatus(telemetry);
 
             robot.getArm().moveShoulder(armPower);
 

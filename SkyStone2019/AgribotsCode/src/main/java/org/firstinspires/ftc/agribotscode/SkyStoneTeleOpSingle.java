@@ -51,7 +51,7 @@ public class SkyStoneTeleOpSingle extends LinearOpMode {
             telemetry.addData("Drive r", r);
             telemetry.addData("Drive y", y);
             telemetry.addData("Shoulder Position", robot.getArm().getShoulderPosition());
-            robot.getDriveSystem().displayPower(telemetry);
+            robot.getDriveSystem().displayStatus(telemetry);
             telemetry.update();
             idle();
         }

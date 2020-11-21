@@ -6,10 +6,8 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 
 
 /**
- * Created by Daniel Miller on 1/9/2018.
  *
  */
-
 @Autonomous (name = "SkyStone Expiremental", group = "SkyStone")
 public class SkyStoneAutoExpiremental extends LinearOpMode {
 
@@ -25,6 +23,12 @@ public class SkyStoneAutoExpiremental extends LinearOpMode {
         delayedStart();
 
         robot.getArm().rotateShoulder (5.0);
+
+        robot.getDriveSystem().rotate(360.0, 0.3);
+        while (opModeIsActive() && robot.getDriveSystem().isBusy()) {
+            robot.getDriveSystem().displayStatus(telemetry);
+            telemetry.update();
+        }
 
         while (opModeIsActive()) {
 

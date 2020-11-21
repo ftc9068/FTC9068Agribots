@@ -1,8 +1,8 @@
 package org.firstinspires.ftc.agribotscode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 public class Arm {
     private static final double CLAW_OPEN_POS = 1.0;     // Maximum rotational position
@@ -43,7 +43,7 @@ public class Arm {
     }
 
     public void setShoulderStopSensor(TouchSensor shoulderStopSensor){
-        this.shoulderStopSensor = shoulderStopSensor;
+        //this.shoulderStopSensor = shoulderStopSensor;
     }
 
     public boolean getArmStopPosition() {
