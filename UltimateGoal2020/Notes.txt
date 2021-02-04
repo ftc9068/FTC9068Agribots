@@ -1,0 +1,16 @@
+To use  this code you need get and configure the apropriate FTC Robot controller project. 
+First export or clone the git repository:   
+https://github.com/FIRST-Tech-Challenge/FtcRobotController.git
+
+Then clone the Agribots code:
+https://github.com/ftc9068/FTC9068Agribots.git
+It may be necessary to switch branches to get the most up to date code for the season:
+git checkout  UltimateGoal
+ 
+In order to include this code in the project modify the settings.gradle file of the include the Agribots code:
+include ':AgribotsCode'
+project(':AgribotsCode').projectDir = new File(settingsDir, '../../FTC9068Agribots/UltimateGoal2020/AgribotsCode')
+
+ 
+Note: the projectDir location may be different depending on where you settup the clones of the agribots and ftc repositories on your computer.
+
