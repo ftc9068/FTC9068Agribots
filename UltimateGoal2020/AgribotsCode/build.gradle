@@ -13,11 +13,9 @@
 
 // Include common definitions from above.
 apply from: new File(rootProject.projectDir, 'build.common.gradle')
-
-repositories {
-    maven { url = "https://dl.bintray.com/first-tech-challenge/ftcsdk/" }
-}
+apply from: new File(rootProject.projectDir, 'build.dependencies.gradle')
 
 dependencies {
+    implementation project(':FtcRobotController')
     annotationProcessor files('lib/OpModeAnnotationProcessor.jar')
 }
