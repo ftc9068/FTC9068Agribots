@@ -29,7 +29,6 @@
 
 package org.firstinspires.ftc.agribotscode;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
@@ -80,7 +79,16 @@ public class ConceptTelemetry extends LinearOpMode  {
         ""
     };
 
+    ElapsedTime xElaped = new ElapsedTime();
+    boolean xToggle = false;
+    double xToggleInterval = 0.5;
+
+    AgribotsTelemetry aTelemetry;
+
+
     @Override public void runOpMode() {
+
+        aTelemetry = AgribotsTelemetry.create(telemetry);
 
         /* we keep track of how long it's been since the OpMode was started, just
          * to have some interesting data to show */
@@ -138,12 +146,14 @@ public class ConceptTelemetry extends LinearOpMode  {
             telemetry.addData("ms/loop", "%.3f ms", opmodeRunTime.milliseconds() / loopCount);
 
             // Show joystick information as some other illustrative data
-            telemetry.addLine("left joystick | ")
-                    .addData("x", gamepad1.left_stick_x)
-                    .addData("y", gamepad1.left_stick_y);
-            telemetry.addLine("right joystick | ")
-                    .addData("x", gamepad1.right_stick_x)
-                    .addData("y", gamepad1.right_stick_y);
+            aTelemetry.displayGamepad(gamepad1);
+            //aTelemetry.displayGamepad(gamepad2);
+
+            toggleXEvent();
+
+            if(gamepad1.y){
+                telemetry.speak("Ouch");
+            }
 
             /**
              * Transmit the telemetry to the driver station, subject to throttling.
@@ -154,6 +164,14 @@ public class ConceptTelemetry extends LinearOpMode  {
             /** Update loop info and play nice with the rest of the {@link Thread}s in the system */
             loopCount++;
         }
+    }
+
+    void  toggleXEvent() {
+        if (gamepad1.x && xElaped.seconds() > xToggleInterval){
+            xToggle = !xToggle;
+            xElaped.reset();
+        }
+        telemetry.addLine("X Toggle").addData("",  xToggle);
     }
 
     // emits a line of poetry to the telemetry log
