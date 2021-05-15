@@ -12,6 +12,8 @@ public class LauncherTestCode extends OpMode{
 
     /* Declare OpMode members. */
     HardwarePushbot robot       = new HardwarePushbot(); // use the class created to define a Pushbot's hardware
+
+    AgribotsTelemetry telAg;
     double          launcherMotorPower  = 0.0;
     boolean         launcherOn = false;
 
@@ -21,6 +23,8 @@ public class LauncherTestCode extends OpMode{
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
+        telAg = AgribotsTelemetry.create(telemetry);
+
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Say", "Hello Driver");    //
@@ -55,11 +59,7 @@ public class LauncherTestCode extends OpMode{
         if (gamepad1.y){
             launcherOn=false;
         }
-        telemetry.addLine("B | ")
-                .addData("x", gamepad1.x)
-                .addData("y", gamepad1.y)
-                .addData("a", gamepad1.a)
-                .addData("b", gamepad1.b)
-                .addData("lancher", launcherOn)
-                .addData("power", launcherMotorPower);
+        telAg.displayGamepad(gamepad1);
+
+
     }}

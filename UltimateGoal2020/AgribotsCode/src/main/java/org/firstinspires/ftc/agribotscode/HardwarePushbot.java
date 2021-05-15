@@ -56,6 +56,10 @@ public class HardwarePushbot
     public DcMotor  leftDrive   = null;
     public DcMotor  rightDrive  = null;
     public DcMotor launcherMotor = null;
+
+
+
+    private double  launcherMotorSpeed = 1.0 ;
 //    public Servo    leftClaw    = null;
 //    public Servo    rightClaw   = null;
 
@@ -104,6 +108,18 @@ public class HardwarePushbot
         // rightClaw = hwMap.get(Servo.class, "right_hand");
         // leftClaw.setPosition(MID_SERVO);
         // rightClaw.setPosition(MID_SERVO);
+
     }
- }
+
+    public void toggleLauncher() {
+        if (launcherMotor.getPower() == 0) {
+            launcherMotor.setPower(launcherMotorSpeed);
+        } else {
+            launcherMotor.setPower(0.0);
+        }
+    }
+    public void setLauncherMotorSpeed(double launcherMotorSpeed) {
+        this.launcherMotorSpeed = launcherMotorSpeed;
+    }
+}
 
