@@ -3,6 +3,7 @@ package org.firstinspires.ftc.agribotscode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 
@@ -10,6 +11,10 @@ import com.qualcomm.robotcore.util.Range;
 public class WBTelop extends OpMode{
     /* Declare OpMode members. */
     HardwarePushbot robot       = new HardwarePushbot();
+
+    ElapsedTime xElaped = new ElapsedTime();
+    boolean xToggle = false;
+    double xToggleInterval = 0.5;
 
 
     /*
@@ -81,6 +86,7 @@ Turn on controller button
         // Combine drive and turn for blended motion.
         double left = drive + turn;
         double right = drive - turn;
+        toggleXEvent();
 
         // Normalize the values so neither exceed +/- 1.0
         double max = Math.max(Math.abs(left), Math.abs(right));
@@ -93,6 +99,13 @@ Turn on controller button
         // Output the safe vales to the motor drives.
         robot.leftDrive.setPower(left);
         robot.rightDrive.setPower(right);
+        void  launchertoggle() {
+            if (gamepad1.x && xElaped.seconds() > xToggleInterval){
+                launchertoggle = !xToggle;
+                launchertoggle.reset();
+            }
+            telemetry.addLine("X Toggle").addData("",  xToggle);
+        }
 
         //
 
