@@ -30,6 +30,7 @@
 package org.firstinspires.ftc.agribotscode;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -56,10 +57,12 @@ public class HardwarePushbot
     public DcMotor  leftDrive   = null;
     public DcMotor  rightDrive  = null;
     public DcMotor launcherMotor = null;
-
-
+    public DcMotor conveyerMotor = null;
+    public Servo leftBrush = null;
+    public Servo rightBrush = null;
 
     private double  launcherMotorSpeed = 1.0 ;
+    private double  conveyerMotorSpeed = 1.0 ;
 //    public Servo    leftClaw    = null;
 //    public Servo    rightClaw   = null;
 
@@ -84,16 +87,20 @@ public class HardwarePushbot
         // Define and Initialize Motors
         leftDrive  = hwMap.get(DcMotor.class, "left_drive");
         rightDrive = hwMap.get(DcMotor.class, "right_drive");
+        conveyerMotor = hwMap.get(DcMotor.class,"conveyer_motor");
         launcherMotor    = hwMap.get(DcMotor.class, "launcher_motor");
+        leftBrush = hwMap.get(Servo.class,"left_brush");
+        rightBrush = hwMap.get(Servo.class,"right_brush");
+
         leftDrive.setDirection(DcMotor.Direction.FORWARD); // Set to REVERSE if using AndyMark motors
         rightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
         launcherMotor.setDirection(DcMotor.Direction.FORWARD);
-
+        conveyerMotor.setDirection(DcMotor.Direction.FORWARD);
         // Set all motors to zero power
         leftDrive.setPower(0);
         rightDrive.setPower(0);
         launcherMotor.setPower(0);
-
+        conveyerMotor.setPower(0);
         //leftArm.setPower(0);
 
         // Set all motors to run without encoders.
@@ -120,6 +127,18 @@ public class HardwarePushbot
     }
     public void setLauncherMotorSpeed(double launcherMotorSpeed) {
         this.launcherMotorSpeed = launcherMotorSpeed;
+    }
+
+
+    public void toggleConveyer() {
+        if (conveyerMotor.getPower() == 0) {
+           conveyerMotor.setPower(conveyerMotorSpeed);
+        } else {
+            launcherMotor.setPower(0.0);
+        }
+    }
+    public void setConveyerMotorSpeed(double ConveyerMotorSpeed) {
+        this.conveyerMotorSpeed = conveyerMotorSpeed;
     }
 }
 

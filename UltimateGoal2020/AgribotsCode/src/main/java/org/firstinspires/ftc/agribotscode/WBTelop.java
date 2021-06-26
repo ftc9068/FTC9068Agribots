@@ -11,10 +11,14 @@ public class WBTelop extends OpMode{
     HardwarePushbot robot       = new HardwarePushbot();
 
     ElapsedTime toggleTimeElaped = new ElapsedTime();
+
+    ElapsedTime toggleConveyerTimeElaped = new ElapsedTime();
+
     //booleans
 
     //doubles and int
     double xToggleInterval = 0.5;
+    double conveyerToggleIntervail = 0.5;
 
 
     /*
@@ -108,6 +112,13 @@ Turn on controller button
         if (gamepad1.x && toggleTimeElaped.seconds() > xToggleInterval){
             robot.toggleLauncher();
             toggleTimeElaped.reset();
+        }
+        //telemetry.addLine("X Toggle").addData("",  xToggle);
+    }
+    void  convayerToggle() { //toggles the conveayer on and off.
+        if (gamepad1.y && toggleConveyerTimeElaped.seconds() > conveyerToggleIntervail){
+            robot.toggleConveyer();
+            toggleConveyerTimeElaped.reset();
         }
         //telemetry.addLine("X Toggle").addData("",  xToggle);
     }
