@@ -63,6 +63,7 @@ public class HardwarePushbot
 
     private double  launcherMotorSpeed = 1.0 ;
     private double  conveyerMotorSpeed = 1.0 ;
+    private  double brushSpeed = 0.5;
 //    public Servo    leftClaw    = null;
 //    public Servo    rightClaw   = null;
 
@@ -87,7 +88,7 @@ public class HardwarePushbot
         // Define and Initialize Motors
         leftDrive  = hwMap.get(DcMotor.class, "left_drive");
         rightDrive = hwMap.get(DcMotor.class, "right_drive");
-        conveyerMotor = hwMap.get(DcMotor.class,"conveyer_motor");
+        conveyerMotor = hwMap.get(DcMotor.class,"conveyor_motor");
         launcherMotor    = hwMap.get(DcMotor.class, "launcher_motor");
         leftBrush = hwMap.get(Servo.class,"left_brush");
         rightBrush = hwMap.get(Servo.class,"right_brush");
@@ -108,6 +109,8 @@ public class HardwarePushbot
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         launcherMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+
         //leftArm.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         // Define and initialize ALL installed servos.
@@ -120,7 +123,7 @@ public class HardwarePushbot
 
     public void toggleLauncher() {
         if (launcherMotor.getPower() == 0) {
-            launcherMotor.setPower(launcherMotorSpeed);
+            launcherMotor.setPower(-launcherMotorSpeed);
         } else {
             launcherMotor.setPower(0.0);
         }
@@ -134,11 +137,22 @@ public class HardwarePushbot
         if (conveyerMotor.getPower() == 0) {
            conveyerMotor.setPower(conveyerMotorSpeed);
         } else {
-            launcherMotor.setPower(0.0);
+            conveyerMotor.setPower(0.0);
         }
     }
     public void setConveyerMotorSpeed(double ConveyerMotorSpeed) {
         this.conveyerMotorSpeed = conveyerMotorSpeed;
+    }
+    public void toggleBrushes() {
+        if (brushSpeed == 0.5) {
+          brushSpeed=1;
+           leftBrush.setPosition(0);
+           rightBrush.setPosition(1); //only works when servos are set to continuous,as the posions are difrent normaly
+        } else {
+            brushSpeed=0.5;
+            rightBrush.setPosition(0.5);
+       leftBrush.setPosition(0.5); // 1 is right, 0 is left, 0.5 is stop.
+        }
     }
 }
 

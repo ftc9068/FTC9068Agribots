@@ -59,6 +59,7 @@ public class LauncherTestCode extends OpMode{
         if (gamepad1.y){
             launcherOn=false;
         }
+       robot.leftBrush.setPosition(0.5);
         telAg.displayGamepad(gamepad1);
 
 

@@ -14,12 +14,14 @@ public class WBTelop extends OpMode{
 
     ElapsedTime toggleConveyerTimeElaped = new ElapsedTime();
 
+    ElapsedTime toggleServoTimeElapsed = new ElapsedTime();
+
     //booleans
 
     //doubles and int
     double xToggleInterval = 0.5;
     double conveyerToggleIntervail = 0.5;
-
+    double servoToggleIntevail = 0.5;
 
     /*
      * Code to run ONCE when the driver hits INIT
@@ -104,7 +106,8 @@ Turn on controller button
         robot.leftDrive.setPower(left);
         robot.rightDrive.setPower(right);
         launchertoggle();
-
+        convayerToggle();
+       servoToggle();
         //
 
     }
@@ -116,10 +119,17 @@ Turn on controller button
         //telemetry.addLine("X Toggle").addData("",  xToggle);
     }
     void  convayerToggle() { //toggles the conveayer on and off.
-        if (gamepad1.y && toggleConveyerTimeElaped.seconds() > conveyerToggleIntervail){
+        if (gamepad1.y && toggleConveyerTimeElaped.seconds() > conveyerToggleIntervail) {
             robot.toggleConveyer();
             toggleConveyerTimeElaped.reset();
         }
+    }
+    void  servoToggle() { //toggles the conveayer on and off.
+            if (gamepad1.a && toggleServoTimeElapsed.seconds() > servoToggleIntevail){
+                robot.toggleBrushes();
+                toggleServoTimeElapsed.reset();
+            }
         //telemetry.addLine("X Toggle").addData("",  xToggle);
     }
 }
+
